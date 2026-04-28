@@ -71,9 +71,10 @@
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
         }
 
-        .hero-slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
+        /* Images de secours si Unsplash est instable */
+        .hero-slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
         .hero-slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1503376712344-652393c850eb?auto=format&fit=crop&q=80&w=2000'); animation-delay: 5s; }
-        .hero-slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
+        .hero-slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
 
         @keyframes fadeAnim {
             0% { opacity: 0; transform: scale(1.05); }
@@ -92,16 +93,21 @@
 
         .fade-in { animation: fadeIn 0.5s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Amélioration pour mobile */
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2.5rem !important; }
+        }
     </style>
 </head>
-<body class="font-sans bg-white text-gray-800 dark:bg-dieum-darkBg dark:text-gray-200 transition-colors duration-300">
+<body class="font-sans bg-white text-gray-800 dark:bg-dieum-darkBg dark:text-gray-200 transition-colors duration-300 overflow-x-hidden">
 
     <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 dark:bg-dieum-darkBg/90 backdrop-blur-md shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <span class="text-2xl font-bold tracking-tighter">
+                    <span class="text-xl md:text-2xl font-bold tracking-tighter">
                         <span class="text-dieum-red">DIEUM</span>
                         <span class="text-gray-900 dark:text-white">BUSINESS</span>
                     </span>
@@ -124,29 +130,34 @@
                 </div>
 
                 <!-- Mobile menu -->
-                <div class="md:hidden flex items-center gap-4">
+                <div class="md:hidden flex items-center gap-2">
                     <button id="theme-toggle-mobile" class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
                         <i id="theme-icon-mobile" class="fas fa-moon"></i>
                     </button>
-                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-gray-300 hover:text-dieum-red focus:outline-none">
+                    <button id="mobile-menu-btn" class="p-2 text-gray-600 dark:text-gray-300 hover:text-dieum-red focus:outline-none">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
         
-        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-dieum-darkBg border-t dark:border-gray-800">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#accueil" class="block px-3 py-2 text-base font-medium text-gray-800 dark:text-gray-200 hover:text-dieum-red">Accueil</a>
-                <a href="#flotte" class="block px-3 py-2 text-base font-medium text-gray-800 dark:text-gray-200 hover:text-dieum-red">Véhicules</a>
-                <a href="#avantages" class="block px-3 py-2 text-base font-medium text-gray-800 dark:text-gray-200 hover:text-dieum-red">Nos Valeurs</a>
-                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-800 dark:text-gray-200 hover:text-dieum-red">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-dieum-darkBg border-t dark:border-gray-800 animate-fadeIn">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#accueil" class="block px-3 py-3 text-lg font-medium text-gray-800 dark:text-gray-200 border-b border-gray-100 dark:border-gray-800" onclick="toggleMenu()">Accueil</a>
+                <a href="#flotte" class="block px-3 py-3 text-lg font-medium text-gray-800 dark:text-gray-200 border-b border-gray-100 dark:border-gray-800" onclick="toggleMenu()">Véhicules</a>
+                <a href="#avantages" class="block px-3 py-3 text-lg font-medium text-gray-800 dark:text-gray-200 border-b border-gray-100 dark:border-gray-800" onclick="toggleMenu()">Nos Valeurs</a>
+                <a href="#contact" class="block px-3 py-3 text-lg font-medium text-gray-800 dark:text-gray-200" onclick="toggleMenu()">Contact</a>
+                <div class="pt-4">
+                    <a href="tel:+243978459404" class="w-full bg-dieum-red text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-phone-alt"></i> Appeler maintenant
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="accueil" class="relative h-screen flex items-center justify-center text-white mt-10 md:mt-0">
+    <section id="accueil" class="relative h-screen flex items-center justify-center text-white">
         <!-- Background Slider -->
         <div class="hero-slider">
             <div class="hero-slide"></div>
@@ -155,21 +166,21 @@
         </div>
 
         <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
-            <span class="inline-block py-1 px-3 rounded-full bg-dieum-red/30 border border-dieum-red text-white font-semibold text-sm mb-6 uppercase tracking-wider backdrop-blur-md shadow-lg">
-                Basé à Lubumbashi
+            <span class="inline-block py-1 px-4 rounded-full bg-dieum-red/30 border border-dieum-red text-white font-semibold text-xs md:text-sm mb-6 uppercase tracking-widest backdrop-blur-md shadow-lg">
+                Basé à Lubumbashi, RDC
             </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-xl">
+            <h1 class="hero-title text-4xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-2xl">
                 Achetez & Louez en <br/><span class="text-dieum-red">Un Seul Clic.</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light drop-shadow-md">
-                <span class="font-semibold text-white">Rapidité, Sécurité, Confiance.</span> Trouvez le véhicule idéal pour vos besoins professionnels ou personnels en République Démocratique du Congo.
+            <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light drop-shadow-md px-2">
+                <span class="font-semibold text-white">Rapidité, Sécurité, Confiance.</span> Trouvez le véhicule idéal pour vos besoins à Lubumbashi et partout en RDC.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#flotte" class="bg-dieum-red hover:bg-dieum-darkRed text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-red-500/40 transform hover:-translate-y-1">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+                <a href="#flotte" class="bg-dieum-red hover:bg-dieum-darkRed text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-red-500/40 transform active:scale-95">
                     Voir les Véhicules
                 </a>
-                <a href="https://wa.me/243978459404?text=Bonjour,%20je%20souhaite%20avoir%20plus%20d'informations%20sur%20vos%20services." target="_blank" class="glass-effect hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/30">
-                    <i class="fab fa-whatsapp text-2xl text-green-400"></i> Contact Rapide
+                <a href="https://wa.me/243978459404?text=Bonjour,%20je%20souhaite%20avoir%20plus%20d'informations%20sur%20vos%20services." target="_blank" class="glass-effect hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 border border-white/30">
+                    <i class="fab fa-whatsapp text-2xl text-green-400"></i> Contact WhatsApp
                 </a>
             </div>
         </div>
@@ -182,27 +193,27 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Notre Devise</h2>
                 <div class="w-24 h-1 bg-dieum-red mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white dark:bg-dieum-darkCard p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 text-center group">
-                    <div class="w-20 h-20 bg-red-50 dark:bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-bolt text-3xl text-dieum-red"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-dieum-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 text-center group">
+                    <div class="w-16 h-16 bg-red-50 dark:bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-dieum-red transition-all duration-300">
+                        <i class="fas fa-bolt text-2xl text-dieum-red group-hover:text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Rapidité</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Des démarches simplifiées pour acheter ou louer votre véhicule en un seul clic, sans perte de temps.</p>
+                    <p class="text-gray-600 dark:text-gray-400">Des démarches simplifiées pour acheter ou louer votre véhicule en un clin d'œil.</p>
                 </div>
-                <div class="bg-white dark:bg-dieum-darkCard p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 text-center group">
-                    <div class="w-20 h-20 bg-red-50 dark:bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-shield-alt text-3xl text-dieum-red"></i>
+                <div class="bg-white dark:bg-dieum-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 text-center group">
+                    <div class="w-16 h-16 bg-red-50 dark:bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-dieum-red transition-all duration-300">
+                        <i class="fas fa-shield-alt text-2xl text-dieum-red group-hover:text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Sécurité</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Des véhicules inspectés rigoureusement et des transactions 100% sécurisées pour votre tranquillité.</p>
+                    <p class="text-gray-600 dark:text-gray-400">Transactions sécurisées et véhicules inspectés pour garantir votre tranquillité d'esprit.</p>
                 </div>
-                <div class="bg-white dark:bg-dieum-darkCard p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 text-center group">
-                    <div class="w-20 h-20 bg-red-50 dark:bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-handshake text-3xl text-dieum-red"></i>
+                <div class="bg-white dark:bg-dieum-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 text-center group">
+                    <div class="w-16 h-16 bg-red-50 dark:bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-dieum-red transition-all duration-300">
+                        <i class="fas fa-handshake text-2xl text-dieum-red group-hover:text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Confiance</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Une relation transparente et de proximité avec tous nos clients à Lubumbashi et au-delà.</p>
+                    <p class="text-gray-600 dark:text-gray-400">Une relation basée sur la transparence avec nos partenaires et nos clients.</p>
                 </div>
             </div>
         </div>
@@ -211,16 +222,16 @@
     <!-- Fleet Section -->
     <section id="flotte" class="py-20 bg-white dark:bg-[#0b1121] transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                <div>
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-8">
+                <div class="text-center md:text-left">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Notre Flotte</h2>
-                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl">Trouvez le véhicule qui correspond parfaitement à vos attentes.</p>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl">Sélectionnez la catégorie qui vous intéresse.</p>
                 </div>
-                <div class="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl shadow-inner">
-                    <button onclick="switchTab('vente')" id="tab-vente" class="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 bg-white dark:bg-dieum-darkCard text-dieum-red shadow-sm">
-                        À Vendre
+                <div class="flex bg-gray-100 dark:bg-gray-800 p-1.5 rounded-2xl shadow-inner w-full md:w-auto">
+                    <button onclick="switchTab('vente')" id="tab-vente" class="flex-1 md:flex-none px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-white dark:bg-dieum-darkCard text-dieum-red shadow-md">
+                        À Acheter
                     </button>
-                    <button onclick="switchTab('location')" id="tab-location" class="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                    <button onclick="switchTab('location')" id="tab-location" class="flex-1 md:flex-none px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
                         À Louer
                     </button>
                 </div>
@@ -228,40 +239,104 @@
 
             <!-- Grids -->
             <div id="grid-vente" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
-                <!-- Vente Items (Exemple) -->
-                <div class="bg-white dark:bg-dieum-darkCard rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
-                    <div class="absolute top-4 right-4 z-10 bg-dieum-red text-white text-xs font-bold px-3 py-1 rounded-full">VENTE</div>
-                    <div class="h-60 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1550482594-554c2d3fb5af?auto=format&fit=crop&q=80&w=800" alt="Toyota Land Cruiser" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <!-- Vente Item 1 -->
+                <div class="bg-white dark:bg-dieum-darkCard rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
+                    <div class="absolute top-4 left-4 z-10 bg-dieum-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase">Disponible</div>
+                    <div class="h-64 overflow-hidden bg-gray-200">
+                        <!-- Correction du lien image Land Cruiser -->
+                        <img src="https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&q=80&w=1000" alt="Toyota Land Cruiser" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=Toyota+Land+Cruiser'">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Toyota Land Cruiser</h3>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Modèle 2023 • Automatique • Diesel</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-xl font-bold text-dieum-red">Nous consulter</span>
-                            <button onclick="openModal('Toyota Land Cruiser', 'Achat')" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-dieum-red dark:hover:bg-dieum-red dark:hover:text-white transition-colors flex items-center gap-2">
-                                <i class="fas fa-mouse-pointer"></i> 1 Clic
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Toyota Land Cruiser V8</h3>
+                        <div class="flex gap-4 text-xs text-gray-500 dark:text-gray-400 mb-6">
+                            <span><i class="fas fa-calendar-alt text-dieum-red mr-1"></i> 2024</span>
+                            <span><i class="fas fa-gas-pump text-dieum-red mr-1"></i> Diesel</span>
+                            <span><i class="fas fa-cog text-dieum-red mr-1"></i> Auto</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <span class="text-xl font-black text-gray-900 dark:text-white">Contactez-nous</span>
+                            <button onclick="openModal('Toyota Land Cruiser V8', 'Achat')" class="bg-dieum-red text-white px-5 py-2.5 rounded-xl font-bold hover:bg-dieum-darkRed transition-all shadow-lg shadow-red-500/20 active:scale-95">
+                                Acheter
                             </button>
                         </div>
                     </div>
                 </div>
-                <!-- ... other vente items ... -->
+
+                <!-- Vente Item 2 -->
+                <div class="bg-white dark:bg-dieum-darkCard rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
+                    <div class="absolute top-4 left-4 z-10 bg-dieum-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase">Disponible</div>
+                    <div class="h-64 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=1000" alt="Mercedes Classe G" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Mercedes G63 AMG</h3>
+                        <div class="flex gap-4 text-xs text-gray-500 dark:text-gray-400 mb-6">
+                            <span><i class="fas fa-calendar-alt text-dieum-red mr-1"></i> 2023</span>
+                            <span><i class="fas fa-gas-pump text-dieum-red mr-1"></i> Essence</span>
+                            <span><i class="fas fa-cog text-dieum-red mr-1"></i> Auto</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <span class="text-xl font-black text-gray-900 dark:text-white">Contactez-nous</span>
+                            <button onclick="openModal('Mercedes G63 AMG', 'Achat')" class="bg-dieum-red text-white px-5 py-2.5 rounded-xl font-bold hover:bg-dieum-darkRed transition-all shadow-lg shadow-red-500/20 active:scale-95">
+                                Acheter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vente Item 3 -->
+                <div class="bg-white dark:bg-dieum-darkCard rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
+                    <div class="absolute top-4 left-4 z-10 bg-dieum-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase">Disponible</div>
+                    <div class="h-64 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&q=80&w=1000" alt="Hyundai Tucson" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Hyundai Tucson</h3>
+                        <div class="flex gap-4 text-xs text-gray-500 dark:text-gray-400 mb-6">
+                            <span><i class="fas fa-calendar-alt text-dieum-red mr-1"></i> 2024</span>
+                            <span><i class="fas fa-gas-pump text-dieum-red mr-1"></i> Essence</span>
+                            <span><i class="fas fa-cog text-dieum-red mr-1"></i> Auto</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <span class="text-xl font-black text-gray-900 dark:text-white">Contactez-nous</span>
+                            <button onclick="openModal('Hyundai Tucson', 'Achat')" class="bg-dieum-red text-white px-5 py-2.5 rounded-xl font-bold hover:bg-dieum-darkRed transition-all shadow-lg shadow-red-500/20 active:scale-95">
+                                Acheter
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="grid-location" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden fade-in">
-                <!-- Location Items (Exemple) -->
-                <div class="bg-white dark:bg-dieum-darkCard rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
-                    <div class="absolute top-4 right-4 z-10 bg-gray-900 text-white text-xs font-bold px-3 py-1 rounded-full">LOCATION</div>
-                    <div class="h-60 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800" alt="Range Rover" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <!-- Location Item 1 -->
+                <div class="bg-white dark:bg-dieum-darkCard rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
+                    <div class="h-64 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1000" alt="SUV Location" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Range Rover Evoque</h3>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Luxe • 5 Places • Climatisation</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-xl font-bold text-dieum-red">150$ <span class="text-sm font-normal text-gray-500">/ jour</span></span>
-                            <button onclick="openModal('Range Rover Evoque', 'Location')" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-dieum-red dark:hover:bg-dieum-red dark:hover:text-white transition-colors flex items-center gap-2">
-                                <i class="fas fa-bolt"></i> Réserver
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Range Rover Sport</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Idéal pour vos déplacements officiels et VIP à Lubumbashi.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <span class="text-2xl font-black text-dieum-red">150$ <span class="text-xs font-normal text-gray-400">/ Jour</span></span>
+                            <button onclick="openModal('Range Rover Sport', 'Location')" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2.5 rounded-xl font-bold hover:bg-dieum-red dark:hover:bg-dieum-red dark:hover:text-white transition-all active:scale-95">
+                                Louer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Location Item 2 -->
+                <div class="bg-white dark:bg-dieum-darkCard rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group relative">
+                    <div class="h-64 overflow-hidden bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1000" alt="Prado Location" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Toyota Prado TXL</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Robuste et confortable pour toutes les routes du Haut-Katanga.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <span class="text-2xl font-black text-dieum-red">120$ <span class="text-xs font-normal text-gray-400">/ Jour</span></span>
+                            <button onclick="openModal('Toyota Prado TXL', 'Location')" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2.5 rounded-xl font-bold hover:bg-dieum-red dark:hover:bg-dieum-red dark:hover:text-white transition-all active:scale-95">
+                                Louer
                             </button>
                         </div>
                     </div>
@@ -274,52 +349,63 @@
     <footer id="contact" class="bg-gray-900 text-white pt-20 pb-10 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-                <div>
+                <div class="text-center md:text-left">
                     <span class="text-2xl font-bold tracking-tighter block mb-6">
                         <span class="text-dieum-red">DIEUM</span>
                         <span class="text-white">BUSINESS</span>
                     </span>
-                    <p class="text-gray-400">Votre partenaire automobile de confiance en RDC.</p>
+                    <p class="text-gray-400">Votre partenaire de confiance pour l'achat et la location de véhicules premium en République Démocratique du Congo.</p>
+                    <div class="flex justify-center md:justify-start gap-4 mt-8">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-dieum-red transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-dieum-red transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-6">Liens Rapides</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#accueil" class="hover:text-dieum-red transition-colors">Accueil</a></li>
-                        <li><a href="#flotte" class="hover:text-dieum-red transition-colors">Véhicules</a></li>
+                <div class="text-center md:text-left">
+                    <h4 class="text-lg font-bold mb-6">Services</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#flotte" class="hover:text-dieum-red transition-colors">Vente de Véhicules</a></li>
+                        <li><a href="#flotte" class="hover:text-dieum-red transition-colors">Location Journalière</a></li>
+                        <li><a href="#flotte" class="hover:text-dieum-red transition-colors">Location Longue Durée</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-6">Contactez-nous</h4>
-                    <p class="text-gray-400"><i class="fas fa-phone-alt text-dieum-red mr-2"></i> +243 978459404</p>
+                <div class="text-center md:text-left">
+                    <h4 class="text-lg font-bold mb-6">Contact</h4>
+                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt text-dieum-red mr-2"></i> Lubumbashi, Haut-Katanga, RDC</p>
+                    <a href="tel:+243978459404" class="text-gray-400 hover:text-white block mb-4"><i class="fas fa-phone-alt text-dieum-red mr-2"></i> +243 978459404</a>
+                    <p class="text-gray-400"><i class="fas fa-envelope text-dieum-red mr-2"></i> contact@dieumbusiness.com</p>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2026 DIEUM BUSINESS. Tous droits réservés.</p>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-xs">
+                <p>&copy; 2026 DIEUM BUSINESS. Tous droits réservés. <br class="md:hidden"> Powered by Un Seul Clic.</p>
             </div>
         </div>
     </footer>
 
     <!-- WhatsApp Modal -->
-    <div id="booking-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
-        <div class="bg-white dark:bg-dieum-darkCard w-full max-w-md rounded-2xl shadow-2xl relative z-10 transform scale-95 opacity-0 transition-all duration-300 mx-4" id="modal-content">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                <i class="fas fa-times text-xl"></i>
+    <div id="booking-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="bg-white dark:bg-dieum-darkCard w-full max-w-md rounded-3xl shadow-2xl relative z-10 transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:text-dieum-red transition-colors">
+                <i class="fas fa-times"></i>
             </button>
             <div class="p-8">
-                <div class="w-16 h-16 bg-green-50 dark:bg-green-500/10 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <div class="w-16 h-16 bg-green-50 dark:bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                     <i class="fab fa-whatsapp text-4xl text-green-500"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-2">Finaliser la commande</h3>
-                <p class="text-center text-gray-500 dark:text-gray-400 mb-6">
-                    Passez votre commande <span id="modal-action-type" class="font-bold text-dieum-red">d'achat</span> pour : <br>
-                    <strong id="modal-vehicle-name" class="text-gray-900 dark:text-white text-lg">Véhicule</strong>
+                <h3 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-2">Presque terminé !</h3>
+                <p class="text-center text-gray-500 dark:text-gray-400 mb-8 px-4">
+                    Vous avez choisi la <span id="modal-action-type" class="font-bold text-dieum-red">commande</span> pour le véhicule : <br>
+                    <strong id="modal-vehicle-name" class="text-gray-900 dark:text-white text-xl block mt-2">Nom du véhicule</strong>
                 </p>
                 <form onsubmit="submitForm(event)" class="space-y-4">
-                    <input type="text" id="client-name" placeholder="Votre Nom Complet" required class="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none text-gray-900 dark:text-white">
-                    <button type="submit" class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 rounded-lg font-bold text-lg flex justify-center items-center gap-2">
-                        <i class="fab fa-whatsapp text-xl"></i> Commander sur WhatsApp
+                    <div>
+                        <label class="text-xs font-bold uppercase text-gray-400 mb-1 block ml-1">Votre Nom Complet</label>
+                        <input type="text" id="client-name" placeholder="Ex: Jean Mukendi" required class="w-full px-4 py-4 rounded-xl bg-gray-50 dark:bg-gray-800 border-none focus:ring-2 focus:ring-dieum-red text-gray-900 dark:text-white placeholder:text-gray-400">
+                    </div>
+                    <button type="submit" class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-3 transition-all transform active:scale-95 shadow-lg shadow-green-500/20">
+                        <i class="fab fa-whatsapp text-2xl"></i> Commander sur WhatsApp
                     </button>
+                    <p class="text-[10px] text-center text-gray-400">En cliquant, vous serez redirigé vers WhatsApp pour finaliser.</p>
                 </form>
             </div>
         </div>
@@ -332,16 +418,22 @@
             html.classList.toggle('dark');
             const isDark = html.classList.contains('dark');
             const icons = [document.getElementById('theme-icon'), document.getElementById('theme-icon-mobile')];
-            icons.forEach(i => i.classList.toggle('fa-moon', !isDark));
-            icons.forEach(i => i.classList.toggle('fa-sun', isDark));
+            icons.forEach(i => {
+                if(i) {
+                    i.classList.toggle('fa-moon', !isDark);
+                    i.classList.toggle('fa-sun', isDark);
+                }
+            });
         }
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
         document.getElementById('theme-toggle-mobile').addEventListener('click', toggleTheme);
 
-        // Mobile menu
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
 
         // Tabs
         function switchTab(tab) {
@@ -351,30 +443,41 @@
             
             const btnV = document.getElementById('tab-vente');
             const btnL = document.getElementById('tab-location');
-            const active = ['bg-white', 'dark:bg-dieum-darkCard', 'text-dieum-red', 'shadow-sm'];
-            const inactive = ['text-gray-500', 'dark:text-gray-400'];
             
             if (isVente) {
-                btnV.classList.add(...active); btnV.classList.remove(...inactive);
-                btnL.classList.remove(...active); btnL.classList.add(...inactive);
+                btnV.className = 'flex-1 md:flex-none px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-white dark:bg-dieum-darkCard text-dieum-red shadow-md';
+                btnL.className = 'flex-1 md:flex-none px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white';
             } else {
-                btnL.classList.add(...active); btnL.classList.remove(...inactive);
-                btnV.classList.remove(...active); btnV.classList.add(...inactive);
+                btnL.className = 'flex-1 md:flex-none px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-white dark:bg-dieum-darkCard text-dieum-red shadow-md';
+                btnV.className = 'flex-1 md:flex-none px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white';
             }
         }
 
-        // Modal
+        // Modal Logic
         const modal = document.getElementById('booking-modal');
         const modalContent = document.getElementById('modal-content');
+        
         function openModal(name, type) {
             document.getElementById('modal-vehicle-name').textContent = name;
-            document.getElementById('modal-action-type').textContent = type.toLowerCase() === 'achat' ? "d'achat" : "de location";
-            modal.classList.replace('hidden', 'flex');
-            setTimeout(() => { modalContent.classList.replace('scale-95', 'scale-100'); modalContent.classList.replace('opacity-0', 'opacity-100'); }, 10);
+            document.getElementById('modal-action-type').textContent = type === 'Achat' ? "d'achat" : "de location";
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 50);
         }
+
         function closeModal() {
-            modalContent.classList.replace('scale-100', 'scale-95'); modalContent.classList.replace('opacity-100', 'opacity-0');
-            setTimeout(() => modal.classList.replace('flex', 'hidden'), 300);
+            modalContent.classList.add('scale-95', 'opacity-0');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
         }
 
         function submitForm(e) {
@@ -382,11 +485,25 @@
             const client = document.getElementById('client-name').value;
             const vehicle = document.getElementById('modal-vehicle-name').textContent;
             const action = document.getElementById('modal-action-type').textContent;
-            const msg = `Bonjour DIEUM BUSINESS ! Je m'appelle ${client}. Je souhaite passer une commande ${action} pour : *${vehicle}*.`;
-            window.open(`https://wa.me/243978459404?text=${encodeURIComponent(msg)}`, '_blank');
+            
+            const message = `Bonjour DIEUM BUSINESS ! Je m'appelle ${client}. Je souhaite passer une commande ${action} pour : *${vehicle}*. Pouvez-vous me donner la marche à suivre ?`;
+            
+            window.open(`https://wa.me/243978459404?text=${encodeURIComponent(message)}`, '_blank');
             closeModal();
             e.target.reset();
         }
+
+        // Navbar effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'bg-white/95', 'dark:bg-dieum-darkBg/95');
+                nav.classList.remove('h-20');
+            } else {
+                nav.classList.remove('py-2', 'bg-white/95', 'dark:bg-dieum-darkBg/95');
+                nav.classList.add('h-20');
+            }
+        });
     </script>
 </body>
 </html>
